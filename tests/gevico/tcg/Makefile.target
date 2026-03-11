@@ -57,9 +57,9 @@ cc-option = if $(call cc-test, $1); then \
     echo "$(TARGET_PREFIX)$1 not detected"; fi
 
 # $1 = test name, $2 = cmd, $3 = desc, $4 = timeout
-run-test = $(case-inc) $(call quiet-command, timeout -s KILL --foreground $4 $2 > $1.out, \
+run-test = $(case-inc) $(call quiet-command, timeout -s KILL --foreground $4 $2 > $1.log 2>&1, \
 	TEST,$(or $3, $*, $<) on $(TARGET_NAME))
-gdbstub-test = $(call quiet-command, timeout -s KILL --foreground $4 $2 > $1.out, \
+gdbstub-test = $(call quiet-command, timeout -s KILL --foreground $4 $2 > $1.log 2>&1, \
 	TEST,$(or $3, $*, $<) on $(TARGET_NAME))
 
 # $1 = test name, $2 = reference
