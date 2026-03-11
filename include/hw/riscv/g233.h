@@ -21,9 +21,9 @@
 #ifndef HW_G233_H
 #define HW_G233_H
 
-#include "hw/boards.h"
+#include "hw/core/boards.h"
 #include "hw/riscv/riscv_hart.h"
-#include "hw/sysbus.h"
+#include "hw/core/sysbus.h"
 #include "hw/block/flash.h"
 #include "hw/intc/riscv_imsic.h"
 
