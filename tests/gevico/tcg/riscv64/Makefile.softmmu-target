@@ -25,13 +25,12 @@ CFLAGS += -I$(TEST_SRC)/crt/ \
 define QEMU_OPTS
 -M $(1) -m 2G \
 -display none -semihosting \
--serial stdio \
--d int \
 -device loader,file=$(2) \
 $(3)
 endef
 
-TEST_CASES := board-g233
+TEST_CASES := insn-dma insn-sort insn-crush insn-expand insn-vdot \
+              insn-vrelu insn-vscale insn-vmax insn-gemm insn-vadd
 
 define case_template
 EXTRA_RUNS += run-$(1)
