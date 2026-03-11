@@ -15,7 +15,7 @@ env:
 jobs:
   build-test-riscv64:
     name: Build & Test RISC-V64 (softmmu)
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -33,14 +33,14 @@ jobs:
       # 步骤2：安装 RISC-V 编译依赖
       - name: Install dependencies
         run: |
-          # 启用 deb-src 源（将所有 deb 源对应的 deb-src 源解锁）
-          sudo sed -i '/^# deb-src /s/^# //' /etc/apt/sources.list
+          # 启用 deb-src 源（ubuntu-24.04 使用 deb822 格式）
+          sudo sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/ubuntu.sources
           sudo apt-get update
-          sudo apt update && sudo apt build-dep qemu
+          sudo apt-get build-dep -y qemu
           # 创建工具链安装目录
           sudo mkdir -p /opt/riscv
           # 下载工具链压缩包
-          wget https://github.com/riscv-collab/riscv-gnu-toolchain/releases/download/2025.09.28/riscv64-elf-ubuntu-22.04-gcc-nightly-2025.09.28-nightly.tar.xz -O riscv-toolchain.tar.xz
+          wget https://github.com/riscv-collab/riscv-gnu-toolchain/releases/download/2025.09.28/riscv64-elf-ubuntu-24.04-gcc-nightly-2025.09.28-nightly.tar.xz -O riscv-toolchain.tar.xz
           # 解压到安装目录
           sudo tar -xJf riscv-toolchain.tar.xz -C /opt/riscv --strip-components=1
           # 设置权限
@@ -54,6 +54,7 @@ jobs:
           rustup --version
           rustc --version
           cargo --version
+          cargo install bindgen-cli
 
       # 步骤3：配置 QEMU，仅编译 riscv64-softmmu
       - name: Configure QEMU (riscv64-softmmu)

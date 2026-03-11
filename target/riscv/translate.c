@@ -1213,11 +1213,9 @@ static uint32_t opcode_at(DisasContextBase *dcbase, target_ulong pc)
 #include "insn_trans/trans_rvbf16.c.inc"
 #include "decode-xthead.c.inc"
 #include "decode-xmips.c.inc"
-#include "decode-xg233.c.inc"
 #include "insn_trans/trans_xthead.c.inc"
 #include "insn_trans/trans_xventanacondops.c.inc"
 #include "insn_trans/trans_xmips.c.inc"
-#include "insn_trans/trans_rvg233.c.inc"
 
 /* Include the auto-generated decoder for 16 bit insn */
 #include "decode-insn16.c.inc"
@@ -1233,7 +1231,6 @@ static uint32_t opcode_at(DisasContextBase *dcbase, target_ulong pc)
 #define MAX_INSN_LEN  4
 
 const RISCVDecoder decoder_table[] = {
-    { always_true_p, decode_xg233 },
     { always_true_p, decode_insn32 },
     { has_xmips_p, decode_xmips},
     { has_xthead_p, decode_xthead},
